@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:target_flutter_test/src/view/notes/notes_screen.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,8 +103,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
-                            Color(0xFF44bc6f))),
-                    onPressed: () => {},
+                            const Color(0xFF44bc6f))),
+                    onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const NotesScreen(user: "username"))),
                     child: const Center(
                       child: Padding(
                         padding: EdgeInsets.only(
