@@ -14,6 +14,7 @@ class _NotesScreenState extends State<NotesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -32,71 +33,74 @@ class _NotesScreenState extends State<NotesScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Spacer(),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 500,
-                    decoration: BoxDecoration(color: Colors.white),
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: 100,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text('$index sheep'),
-                          trailing: SizedBox(
-                            width: 60,
-                            height: 20,
-                            child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  InkWell(
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 350),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 350,
+                      decoration: BoxDecoration(color: Colors.white),
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: 100,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text('$index sheep'),
+                            trailing: SizedBox(
+                              width: 60,
+                              height: 20,
+                              child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                        onTap: () {},
+                                        child: const Icon(Icons.edit)),
+                                    const SizedBox(width: 10),
+                                    InkWell(
                                       onTap: () {},
-                                      child: const Icon(Icons.edit)),
-                                  const SizedBox(width: 10),
-                                  InkWell(
-                                    onTap: () {},
-                                    child: const Icon(
-                                      Icons.cancel,
-                                      color: Colors.red,
-                                    ),
-                                  )
-                                ]),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const Divider();
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  TextFormField(
-                    onEditingComplete: () {},
-                    cursorColor: Colors.black,
-                    cursorWidth: 1,
-                    style: const TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      hintText: "Digite seu texto",
-                      hintStyle: const TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide.none,
+                                      child: const Icon(
+                                        Icons.cancel,
+                                        color: Colors.red,
+                                      ),
+                                    )
+                                  ]),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const Divider();
+                        },
                       ),
-                      contentPadding: const EdgeInsets.all(16.0),
-
-                      // Add box shadow
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    TextFormField(
+                      onEditingComplete: () {},
+                      cursorColor: Colors.black,
+                      cursorWidth: 1,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        hintText: "Digite seu texto",
+                        hintStyle: const TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.all(16.0),
+
+                        // Add box shadow
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const Spacer(),
               InkWell(

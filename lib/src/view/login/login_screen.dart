@@ -13,6 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -31,71 +32,74 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 10.0, bottom: 2.0),
-                    child: Text(
-                      "Usuário",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w100),
-                    ),
-                  ),
-                  TextFormField(
-                    cursorColor: Colors.black,
-                    cursorWidth: 1,
-                    style: const TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide.none,
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 300),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 10.0, bottom: 2.0),
+                      child: Text(
+                        "Usuário",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w100),
                       ),
-                      contentPadding: const EdgeInsets.all(16.0),
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: Colors.black,
-                      ),
-                      // Add box shadow
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 10.0, bottom: 2.0),
-                    child: Text(
-                      "Senha",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w100),
-                    ),
-                  ),
-                  TextFormField(
-                    obscureText: true,
-                    cursorColor: Colors.black,
-                    cursorWidth: 1,
-                    style: const TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide.none,
+                    TextFormField(
+                      cursorColor: Colors.black,
+                      cursorWidth: 1,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.all(16.0),
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: Colors.black,
+                        ),
+                        // Add box shadow
                       ),
-                      contentPadding: const EdgeInsets.all(16.0),
-                      prefixIcon: const Icon(
-                        Icons.lock,
-                        color: Colors.black,
-                      ),
-                      // Add box shadow
                     ),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 10.0, bottom: 2.0),
+                      child: Text(
+                        "Senha",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w100),
+                      ),
+                    ),
+                    TextFormField(
+                      obscureText: true,
+                      cursorColor: Colors.black,
+                      cursorWidth: 1,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.all(16.0),
+                        prefixIcon: const Icon(
+                          Icons.lock,
+                          color: Colors.black,
+                        ),
+                        // Add box shadow
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                  ],
+                ),
               ),
               Row(
                 mainAxisSize: MainAxisSize.min,
