@@ -99,10 +99,13 @@ class _NotesScreenState extends State<NotesScreen> {
                 ],
               ),
               const Spacer(),
-              const Text(
-                'Política de privacidade',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w100),
+              InkWell(
+                onTap: () {},
+                child: const Text(
+                  'Política de privacidade',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w100),
+                ),
               ),
             ],
           ),

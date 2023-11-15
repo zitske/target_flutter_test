@@ -125,10 +125,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               const Spacer(),
-              const Text(
-                'Política de privacidade',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w100),
+              InkWell(
+                onTap: () {},
+                child: const Text(
+                  'Política de privacidade',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w100),
+                ),
               ),
             ],
           ),
