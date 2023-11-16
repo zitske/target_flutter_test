@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:target_flutter_test/data.dart';
+import 'package:target_flutter_test/src/controller/notes/notes_controller.dart';
+import 'package:target_flutter_test/src/view/notes/components/alertDialog.dart';
+
+final data = Data();
 
 class NotesScreen extends StatefulWidget {
   const NotesScreen({super.key, required this.user});
@@ -10,6 +16,11 @@ class NotesScreen extends StatefulWidget {
 }
 
 class _NotesScreenState extends State<NotesScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,63 +53,100 @@ class _NotesScreenState extends State<NotesScreen> {
                   children: [
                     Container(
                       height: 350,
-                      decoration: BoxDecoration(color: Colors.white),
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        itemCount: 100,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text('$index sheep'),
-                            trailing: SizedBox(
-                              width: 60,
-                              height: 20,
-                              child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    InkWell(
-                                        onTap: () {},
-                                        child: const Icon(Icons.edit)),
-                                    const SizedBox(width: 10),
-                                    InkWell(
-                                      onTap: () {},
-                                      child: const Icon(
-                                        Icons.cancel,
-                                        color: Colors.red,
-                                      ),
-                                    )
-                                  ]),
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return const Divider();
-                        },
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          border: Border.fromBorderSide(BorderSide.none),
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      child: Observer(
+                        builder: (_) => ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: data.notes.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(data.notes[index]),
+                              trailing: SizedBox(
+                                width: 60,
+                                height: 20,
+                                child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                          onTap: () {
+                                            data.editMode(data.notes[index]);
+                                          },
+                                          child: const Icon(Icons.edit)),
+                                      const SizedBox(width: 10),
+                                      InkWell(
+                                        onTap: () {
+                                          showMyDialog(context, index);
+                                        },
+                                        child: const Icon(
+                                          Icons.cancel,
+                                          color: Colors.red,
+                                        ),
+                                      )
+                                    ]),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                     const SizedBox(
                       height: 40,
                     ),
-                    TextFormField(
-                      onEditingComplete: () {},
-                      cursorColor: Colors.black,
-                      cursorWidth: 1,
-                      style: const TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                        hintText: "Digite seu texto",
-                        hintStyle: const TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                          borderSide: BorderSide.none,
-                        ),
-                        contentPadding: const EdgeInsets.all(16.0),
+                    Stack(
+                      children: [
+                        TextFormField(
+                          key: formKey,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Campo obrigatório';
+                            }
+                            return null;
+                          },
+                          controller: noteTextController,
+                          onFieldSubmitted: (value) {
+                            data.submit();
+                          },
+                          cursorColor: Colors.black,
+                          cursorWidth: 1,
+                          style: const TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                            hintText: "Digite seu texto",
+                            hintStyle: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal),
+                            filled: true,
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            contentPadding: const EdgeInsets.all(16.0),
 
-                        // Add box shadow
-                      ),
-                    ),
+                            // Add box shadow
+                          ),
+                        ),
+                        Positioned(
+                          right: 5,
+                          top: 5,
+                          child: Observer(
+                              builder: (_) => Visibility(
+                                    visible: data.editing,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          data.cancel();
+                                        },
+                                        icon: const Icon(
+                                          Icons.cancel,
+                                          color: Colors.red,
+                                        )),
+                                  )),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
